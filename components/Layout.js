@@ -1,7 +1,7 @@
 import React from "react";
-import Footer from "./src/footer/footer";
-import Header from "./src/header/header";
-import HtmlHead from "./src/htmlHead/htmlHead";
+import Footer from "./src/footer/Footer";
+import Header from "./src/header/Header";
+import HtmlHead from "./src/htmlHead/HtmlHead";
 
 const Layout = (props) => {
   return (
