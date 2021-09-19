@@ -1,4 +1,5 @@
 import React from "react";
+import AddToCart from "../src/AddToCart";
 
 const Card = (props) => {
   return (
@@ -13,7 +14,7 @@ const Card = (props) => {
           <div className="flex flex-col mt-2">
             <h4 className="text-gray-200 text-center py-8 ">{props.title}</h4>
             <p className="text-white text-center py-2">Price: ${props.price}</p>
-            <button className="bg-blue-600 hover:bg-blue-700 text-white font-semibold py-2 pz-4 rounded">Add to Cart</button>
+            <AddToCart cartItem={props}/>
           </div>
         </div>
       </div>
