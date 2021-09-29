@@ -3,15 +3,13 @@ import { useRouter } from "next/router";
 import Axios from "axios";
 import AddToCart from "../../components/src/AddToCart";
 
-const ProductDetail = ({ product, id }) => {
+const ProductDetail = ({ product }) => {
   const router = useRouter();
   console.log(router.query);
 
   return (
     <React.Fragment>
-      <h2>This is Product Detail Page</h2>
-
-      {console.log(id)}
+      <h2>This is Product Detail Page</h2>   
       {console.log(product)}
 
       <div className="bg-blue-600 pt-1 px-2 bg-gradient-to-b from-blue-300 to-blue-400 rounded-xl shadow-lg w-auto">
