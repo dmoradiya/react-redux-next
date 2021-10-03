@@ -1,11 +1,15 @@
 import React from 'react';
-import { useSelector } from 'react-redux';
+import { useSelector, useDispatch } from 'react-redux';
+import { cartSliceActions } from "../../components/store/cart-slice";
 
 const Cart = () => {
     const cart = useSelector((state) => state.cart);
+    const dispatch = useDispatch();
     const taxRate = 0.05;
     const totalTax = (cart.cartSubtotal * taxRate).toFixed(2);
     const total = (cart.cartSubtotal + +totalTax).toFixed(2);
+
+    
 
     return (
       <React.Fragment>
@@ -39,8 +43,9 @@ const Cart = () => {
                           <p className="mb-2 md:ml-4">{cartItem.itemTitle}</p>
 
                           <button
-                            type="button"
-                            className="text-gray-700 md:ml-4"
+                            
+                            className="text-gray-700 md:ml-4 pointer"
+                            onClick={()=> dispatch(cartSliceActions.removeItemFromCart(cartItem.itemId))}
                           >
                             <small>(Remove item)</small>
                           </button>
@@ -52,8 +57,11 @@ const Cart = () => {
                             <input
                               type="number"
                               value={cartItem.qty}
+                              
                               className="w-full font-semibold text-center text-gray-700 bg-gray-200 outline-none focus:outline-none hover:text-black focus:text-black"
                             />
+                            <button onClick={() => dispatch(cartSliceActions.addQty(cartItem.itemId))}>+</button>
+                            <button>-</button>
                           </div>
                         </div>
                       </td>

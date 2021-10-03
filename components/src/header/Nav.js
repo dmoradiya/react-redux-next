@@ -22,7 +22,7 @@ const Nav = () => {
                 Cart
                 <sup className="bg-green-300 rounded-full px-2 py-1">
                   {cart.cartQty}
-                </sup>${cart.cartSubtotal}
+                </sup>${(cart.cartSubtotal).toFixed(2)}
               </span>
             </Link>
           </li>

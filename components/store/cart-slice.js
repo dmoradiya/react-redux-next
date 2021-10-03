@@ -27,18 +27,38 @@ const cartSlice = createSlice({
       }
 
       state.cartQty = state.items.length;
-      state.cartSubtotal = state.items.map(item=>item.totalPrice).reduce((prev,curr) => prev + curr, 0);
+      state.cartSubtotal = state.items
+        .map((item) => item.totalPrice)
+        .reduce((prev, curr) => prev + curr, 0);
     },
+
     removeItemFromCart(state, action) {
-      const id = action.payload;
+      const id = +action.payload;
       const existingItem = state.items.find((item) => item.itemId === id);
+      console.log(id);
       if (existingItem.qty === 1) {
-        state.items.filter((item) => item.id !== id);
+        state.items.filter((item) => item.itemId !== id);
       } else {
         existingItem.qty--;
         existingItem.totalPrice =
           existingItem.totalPrice - existingItem.itemPrice;
+        state.cartSubtotal -= existingItem.totalPrice;
       }
+    },
+
+    addQty(state, action) {
+      const id = action.payload;
+      const existingItem = state.items.find(
+        (item) => item.itemId === id
+      );
+      
+        existingItem.qty++;   
+        existingItem.totalPrice =
+          existingItem.totalPrice + existingItem.itemPrice;
+        state.cartSubtotal = state.items
+          .map((item) => item.totalPrice)
+          .reduce((prev, curr) => prev + curr, 0);
+        
     },
   },
 });
