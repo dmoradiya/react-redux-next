@@ -1,10 +1,10 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
 import { cartSliceActions } from "../../components/store/cart-slice";
 
 const Cart = () => {
-    const cart = useSelector((state) => state.cart);
-    const dispatch = useDispatch();
+    const cart = useSelector((state) => state.cart);    
+    const dispatch = useDispatch();   
     const taxRate = 0.05;
     const totalTax = (cart.cartSubtotal * taxRate).toFixed(2);
     const total = (cart.cartSubtotal + +totalTax).toFixed(2);
@@ -43,9 +43,14 @@ const Cart = () => {
                           <p className="mb-2 md:ml-4">{cartItem.itemTitle}</p>
 
                           <button
-                            
                             className="text-gray-700 md:ml-4 pointer"
-                            onClick={()=> dispatch(cartSliceActions.removeItemFromCart(cartItem.itemId))}
+                            onClick={() =>
+                              dispatch(
+                                cartSliceActions.removeItemFromCart(
+                                  cartItem.itemId
+                                )
+                              )
+                            }
                           >
                             <small>(Remove item)</small>
                           </button>
@@ -54,14 +59,31 @@ const Cart = () => {
                       <td className="justify-center md:justify-end md:flex mt-6">
                         <div className="w-20 h-10">
                           <div className="relative flex flex-row w-full h-8">
+                            <button
+                              className="p-1 mx-1 rounded bg-green-400"
+                              onClick={() =>
+                                dispatch(
+                                  cartSliceActions.increaseQty(cartItem.itemId)
+                                )
+                              }
+                            >
+                              +
+                            </button>
                             <input
-                              type="number"
+                              type="text"
                               value={cartItem.qty}
-                              
                               className="w-full font-semibold text-center text-gray-700 bg-gray-200 outline-none focus:outline-none hover:text-black focus:text-black"
                             />
-                            <button onClick={() => dispatch(cartSliceActions.addQty(cartItem.itemId))}>+</button>
-                            <button>-</button>
+                            <button
+                              className="p-1 mx-1 rounded bg-green-400"
+                              onClick={() =>
+                                dispatch(
+                                  cartSliceActions.decreaseQty(cartItem.itemId)
+                                )
+                              }
+                            >
+                              -
+                            </button>
                           </div>
                         </div>
                       </td>
@@ -81,9 +103,7 @@ const Cart = () => {
               </table>
 
               <div className="my-4 mt-6 -mx-2 lg:flex">
-                
                 <div className="lg:px-2 lg:w-1/2">
-                  
                   <div className="p-4">
                     <p className="mb-6 italic">
                       Shipping and additionnal costs are calculated based on
@@ -97,8 +117,7 @@ const Cart = () => {
                         {cart.cartSubtotal}
                       </div>
                     </div>
-                    
-                  
+
                     <div className="flex justify-between pt-4 border-b">
                       <div className="lg:px-4 lg:py-2 m-2 text-lg lg:text-xl font-bold text-center text-gray-800">
                         Tax (5% GST)

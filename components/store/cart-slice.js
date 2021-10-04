@@ -46,19 +46,28 @@ const cartSlice = createSlice({
       }
     },
 
-    addQty(state, action) {
+    increaseQty(state, action) {
       const id = action.payload;
-      const existingItem = state.items.find(
-        (item) => item.itemId === id
-      );
-      
-        existingItem.qty++;   
-        existingItem.totalPrice =
-          existingItem.totalPrice + existingItem.itemPrice;
-        state.cartSubtotal = state.items
-          .map((item) => item.totalPrice)
-          .reduce((prev, curr) => prev + curr, 0);
-        
+      const existingItem = state.items.find((item) => item.itemId === id);
+
+      existingItem.qty++;
+      existingItem.totalPrice =
+        existingItem.totalPrice + existingItem.itemPrice;
+      state.cartSubtotal = state.items
+        .map((item) => item.totalPrice)
+        .reduce((prev, curr) => prev + curr, 0);
+    },
+
+    decreaseQty(state, action) {
+      const id = action.payload;
+      const existingItem = state.items.find((item) => item.itemId === id);
+
+      existingItem.qty--;
+      existingItem.totalPrice =
+      existingItem.totalPrice - existingItem.itemPrice;
+      state.cartSubtotal = state.items
+        .map((item) => item.totalPrice)
+        .reduce((prev, curr) => prev + curr, 0);
     },
   },
 });
